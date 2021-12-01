@@ -147,4 +147,36 @@ int main() {
 		storage.add(obj);
 	}
 	showstorage(storage);
+
+	storage.firstItem();
+	object* F = storage.removeC();
+	cout << "removed first item: " << F->getname() << endl;
+	delete F;
+	showstorage(storage);
+
+	storage.firstItem();
+	for (int i = 0; !storage.isEoL() && i < n / 2 - 1; storage.nextItem(), i++);
+	object* M = storage.removeC();
+	cout << "removed middle item: " << M->getname() << endl;
+	delete M;
+	showstorage(storage);
+
+	storage.lastItem();
+	object* L = storage.curItem();
+	L->setname('0');
+	cout << "last item is changed to " << L->getname() << endl;
+	showstorage(storage);
+
+	cout << "is there item " << L->getname() << " in the storage: " << showpresence(storage, L);
+	object* L1 = new object('1');
+	cout << "is there item " << L1->getname() << " in the storage: " << showpresence(storage, L1);
+
+	storage.firstItem();
+	storage.add(L1);
+	cout << "added item: " << L1->getname() << endl;
+	showstorage(storage);
+
+	for (storage.firstItem(); !storage.isEoL(); storage.nextItem()) {
+		delete storage.curItem();
+	}
 }
