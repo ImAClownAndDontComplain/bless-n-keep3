@@ -25,18 +25,61 @@ public:
 	}
 };
 
-template <typename T>
 class Item {
 public:
-	T* obj;
-	Item<T>* prev;
-	Item<T>* next;
-	Item(T* object) {
-		obj = object;
+	object* obj;
+	Item* prev;
+	Item* next;
+	Item(object* O) {
+		obj = O;
 		cout << "the item " << obj->getname() << " has been created\n\n";
 		prev = nullptr;
 		next = nullptr;
 	}
 };
 
-
+class Storage {
+	Item* first;
+	Item* current;
+	Item* last;
+public:
+	Storage() {
+		first = nullptr;
+		current = nullptr;
+		last = nullptr;
+		cout << "the storage has been created\n\n";
+	}
+	int count() {
+		int res = 0;
+		for (firstItem(); !isEoL(); nextItem())res++;
+		return res;
+	}
+	void add(object* obj) {
+		Item* item = new Item(obj);
+		if (first == nullptr) {
+			first = item;
+			current = item;
+			last = item;
+		}
+		else {
+			last->next = item;
+			item->prev = last;
+			last = item;
+		}
+	}
+	void firstItem() {
+		current = first;
+	}
+	void lastItem() {
+		current = last;
+	}
+	void prevItem() {
+		if (!isEoL()) current = current->prev;
+	}
+	void nextItem() {
+		if (!isEoL()) current = current->next;
+	}
+	bool isEoL() {
+		return current == nullptr;
+	}
+};
