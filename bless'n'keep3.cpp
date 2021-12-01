@@ -127,3 +127,24 @@ public:
 	}
 };
 
+void showstorage(Storage storage) {
+	cout << "the storage: ";
+	for (storage.firstItem(); !storage.isEoL(); storage.nextItem()) {
+		cout << storage.curItem()->getname() << " ";
+	}
+	cout << "\ntotal amount of items is " << storage.count() << "\n\n";
+}
+string showpresence(Storage& s, object* o) {
+	if (s.isThere(o) == true)return "yes\n\n";
+	else return "no\n\n";
+}
+
+int main() {
+	Storage storage;
+	srand(time(NULL));
+	for (int i = 0; i < n; i++) {
+		object* obj = new object((char)(65 + rand() % 26));
+		storage.add(obj);
+	}
+	showstorage(storage);
+}
