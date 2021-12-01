@@ -24,3 +24,19 @@ public:
 		cout << "the object " << name << " has been deleted\n";
 	}
 };
+
+template <typename T>
+class Item {
+public:
+	T* obj;
+	Item<T>* prev;
+	Item<T>* next;
+	Item(T* object) {
+		obj = object;
+		cout << "the item " << obj->getname() << " has been created\n\n";
+		prev = nullptr;
+		next = nullptr;
+	}
+};
+
+
