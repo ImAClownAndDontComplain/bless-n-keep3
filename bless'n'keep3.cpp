@@ -82,4 +82,48 @@ public:
 	bool isEoL() {
 		return current == nullptr;
 	}
+	bool isThere(object* O) {
+		for (firstItem(); !isEoL(); nextItem())
+			if (curItem() == O) return true;
+		return false;
+	}
+	object* curItem() {
+		return current->obj;
+	}
+	object* removeC() {
+		if (current == nullptr)	return NULL;
+		Item* prev = current->prev;
+		Item* next = current->next;
+		object* obj = current->obj;
+		delete current;
+		if (prev == nullptr && next == nullptr) {
+			first = nullptr;
+			last = nullptr;
+		}
+		else if (next == nullptr) {
+			current = prev;
+			last = prev;
+			last->next = nullptr;
+		}
+		else if (prev == nullptr) {
+			current = next;
+			first->prev = nullptr;
+			first = next;
+		}
+		else {
+			current = next;
+			prev->next = next;
+			next->prev = prev;
+		}
+		return obj;
+	}
+	~Storage() {
+		if (first == nullptr) return;
+		while (!isEoL()) {
+			Item* next = current->next;
+			delete current;
+			current = next;
+		}
+	}
 };
+
